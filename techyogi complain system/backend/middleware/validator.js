@@ -30,9 +30,19 @@ const validateComplaint = [
     .withMessage('Address must be between 5 and 500 characters'),
   
   body('serviceType')
-    .notEmpty()
-    .withMessage('Service type is required')
-    .isArray({ min: 1 })
+    .custom((value, { req }) => {
+      const actualValue = value ?? req.body['serviceType[]'];
+
+      if (Array.isArray(actualValue)) {
+        return actualValue.length > 0;
+      }
+
+      if (typeof actualValue === 'string') {
+        return actualValue.trim().length > 0;
+      }
+
+      return false;
+    })
     .withMessage('At least one service type must be selected'),
   
   body('priority')
