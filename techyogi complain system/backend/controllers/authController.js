@@ -89,27 +89,21 @@ const login = async (req, res) => {
     admin.lastLogin = new Date();
     await admin.save();
 
-    // Generate and send OTP
-    const otp = generateOTP(4);
-    admin.otp = {
-      code: otp,
-      expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
-    };
-    await admin.save();
-
-    // Send OTP via SMS
-    const smsResult = await sendSMS(
-      admin.phoneNumber,
-      `Your Techyogi Admin verification code is: ${otp}. Valid for 10 minutes.`
-    );
+    // Skip OTP - Direct login for now
+    const token = generateToken(admin._id);
 
     res.json({
       success: true,
-      message: 'OTP sent to your registered phone number',
+      message: 'Login successful',
       data: {
-        requiresOTP: true,
-        phoneNumber: admin.phoneNumber.replace(/\d(?=\d{4})/g, '*'), // Mask phone number
-        otpSent: smsResult.success,
+        token,
+        admin: {
+          id: admin._id,
+          username: admin.username,
+          name: admin.name,
+          role: admin.role,
+          phoneNumber: admin.phoneNumber,
+        },
       },
     });
   } catch (error) {
