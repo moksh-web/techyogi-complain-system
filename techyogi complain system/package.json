@@ -1,0 +1,19 @@
+{
+  "name": "techyogi-complaint-system",
+  "version": "1.0.0",
+  "description": "Complaint Management System for Techyogi Automation",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  },
+  "keywords": ["complaint", "management", "techyogi", "automation"],
+  "author": "Techyogi Automation",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
