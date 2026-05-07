@@ -21,6 +21,8 @@ const createComplaint = async (req, res) => {
       message,
     } = req.body;
 
+    const rawServiceType = serviceType ?? req.body['serviceType[]'];
+
     // Generate unique complaint ID
     const complaintId = generateComplaintId();
 
@@ -49,7 +51,7 @@ const createComplaint = async (req, res) => {
       alternatePhone: alternatePhone || '',
       companyName,
       address,
-      serviceType: Array.isArray(serviceType) ? serviceType : [serviceType],
+      serviceType: Array.isArray(rawServiceType) ? rawServiceType : [rawServiceType],
       priority,
       message,
       images,
