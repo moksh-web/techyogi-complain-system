@@ -79,8 +79,8 @@ const login = async (req, res) => {
       // Increment login attempts
       admin.loginAttempts += 1;
       
-      // Lock account after 5 failed attempts
-      if (admin.loginAttempts >= 5) {
+      // Lock account after 10 failed attempts
+      if (admin.loginAttempts >= 10) {
         admin.lockUntil = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
       }
       
