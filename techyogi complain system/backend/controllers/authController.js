@@ -33,7 +33,7 @@ const initializeAdmins = async () => {
         
         await Admin.create({
           username: `admin${i + 1}`,
-          password: 'admin488', // Should be changed after first login
+          password: 'admin123', // Should be changed after first login
           phoneNumber: formattedPhone,
           name: `Admin ${i + 1}`,
           role: i === 0 ? 'superadmin' : 'admin',
